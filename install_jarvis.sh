@@ -1,29 +1,55 @@
 #!/bin/bash
 
 # install_jarvis.sh
-# 다른 프로젝트에 JARVIS-Core를 복제/설치하는 스크립트.
+# JARVIS-Core를 현재 폴더 또는 대상 폴더에 설치합니다.
+# 이 스크립트는 로컬 실행 및 원격 curl 실행을 모두 지원하도록 설계되었습니다.
 
+# 1. 설정
+GITHUB_REPO="https://raw.githubusercontent.com/sangyoon-lee503/jarvis-core/main"
 TARGET_DIR="${1:-.}"
+IS_REMOTE=false
 
-if [ ! -d "$TARGET_DIR" ]; then
-    echo "대상 디렉토리 $TARGET_DIR 가 존재하지 않습니다."
-    exit 1
+# 현재 폴더에 .jarvis가 없으면 원격 모드로 간주
+if [ ! -d ".jarvis" ]; then
+    IS_REMOTE=true
+    echo "[JARVIS-Install] 원격 저장소에서 소스를 가져옵니다..."
 fi
 
-echo "JARVIS-Core를 $TARGET_DIR 에 설치하는 중..."
+mkdir -p "$TARGET_DIR/.jarvis/bin" "$TARGET_DIR/.jarvis/config" "$TARGET_DIR/.jarvis/prompts" "$TARGET_DIR/.vscode"
 
-# 숨김 폴더 구조 복사
-cp -r .jarvis "$TARGET_DIR/"
+copy_file() {
+    local src_path=$1
+    local dest_path=$2
+    
+    if [ "$IS_REMOTE" = true ]; then
+        curl -fsSL "$GITHUB_REPO/$src_path" -o "$TARGET_DIR/$dest_path"
+    else
+        cp "$src_path" "$TARGET_DIR/$dest_path"
+    fi
+}
 
-# 설정 스크립트 복사
-cp setup-orch.sh "$TARGET_DIR/"
+echo "[JARVIS-Install] JARVIS-Core 설치 시작 (대상: $TARGET_DIR)..."
 
-# 에이전트 가이드라인 복사
-cp AGENTS.md "$TARGET_DIR/"
+# 파일 목록 복사
+FILES=(
+    ".jarvis/bin/jarvis.sh"
+    ".jarvis/config/config.json"
+    ".jarvis/config/models.json"
+    ".jarvis/prompts/system_prompt.md"
+    "setup-orch.sh"
+    "AGENTS.md"
+    ".vscode/tasks.json"
+)
 
-# 스크립트 실행 권한 부여
+for file in "${FILES[@]}"; do
+    echo "  > $file 복사 중..."
+    copy_file "$file" "$file"
+done
+
+# 실행 권한 설정
 chmod +x "$TARGET_DIR/.jarvis/bin/jarvis.sh"
 chmod +x "$TARGET_DIR/setup-orch.sh"
 
-echo "JARVIS-Core가 $TARGET_DIR 에 성공적으로 설치되었습니다."
-echo "'./setup-orch.sh'를 실행하여 초기화하세요."
+echo "[JARVIS-Install] 설치가 완료되었습니다."
+echo "[JARVIS-Install] GitHub에 올린 후 [YOUR_USERNAME]을 실제 계정명으로 변경하는 것을 잊지 마세요."
+echo "[JARVIS-Install] 완료 후 './setup-orch.sh'를 실행하여 환경을 점검하세요."
