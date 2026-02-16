@@ -1,0 +1,19 @@
+{
+    "roles": {
+        "planner": {
+            "name": "JARVIS-Core",
+            "model": "gemini-2.0-flash-thinking-exp-1219",
+            "description": "Project Planner and Orchestrator"
+        },
+        "developer": {
+            "name": "JARVIS-Logic",
+            "model": "claude-3-5-sonnet-v2",
+            "description": "Main Developer - Big Pickle Persona"
+        },
+        "qa": {
+            "name": "JARVIS-Sentry",
+            "model": "moonshots-k1",
+            "description": "Quality Assurance and Rollback - Kimi Persona"
+        }
+    }
+}

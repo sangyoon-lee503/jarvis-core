@@ -1,0 +1,17 @@
+{
+  "project_name": "JARVIS-Core",
+  "version": "1.0.0",
+  "environment": "development",
+  "settings": {
+    "auto_rollback": true,
+    "log_level": "info",
+    "notifications": {
+      "slack": false,
+      "email": false
+    }
+  },
+  "paths": {
+    "prompts": ".jarvis/prompts",
+    "scripts": ".jarvis/bin"
+  }
+}
