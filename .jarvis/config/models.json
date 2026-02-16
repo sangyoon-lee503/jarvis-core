@@ -2,18 +2,19 @@
     "roles": {
         "planner": {
             "name": "JARVIS-Core",
-            "model": "gemini-2.0-flash-thinking-exp-1219",
-            "description": "Project Planner and Orchestrator"
+            "model": "Gemini-3-Flash"
         },
-        "developer": {
+        "developer_senior": {
             "name": "JARVIS-Logic",
-            "model": "claude-3-5-sonnet-v2",
-            "description": "Main Developer - Big Pickle Persona"
+            "model": "Big Pickle"
         },
-        "qa": {
+        "developer_junior": {
+            "name": "JARVIS-UI",
+            "model": "MiniMax M2.5"
+        },
+        "qa_engineer": {
             "name": "JARVIS-Sentry",
-            "model": "moonshots-k1",
-            "description": "Quality Assurance and Rollback - Kimi Persona"
+            "model": "Kimi K2.5"
         }
     }
 }
