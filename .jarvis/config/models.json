@@ -1,20 +1,6 @@
 {
-    "roles": {
-        "planner": {
-            "name": "JARVIS-Core",
-            "model": "Gemini-3-Flash"
-        },
-        "developer_senior": {
-            "name": "JARVIS-Logic",
-            "model": "Big Pickle"
-        },
-        "developer_junior": {
-            "name": "JARVIS-UI",
-            "model": "MiniMax M2.5"
-        },
-        "qa_engineer": {
-            "name": "JARVIS-Sentry",
-            "model": "Kimi K2.5"
-        }
-    }
+  "planner": "Gemini-3-Flash",
+  "developer_senior": "Big Pickle",
+  "developer_junior": "MiniMax M2.5",
+  "qa_engineer": "Kimi K2.5"
 }
